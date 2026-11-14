@@ -48,7 +48,7 @@ The project is divided among four team members to support parallel development a
 
 | Team Member | Responsibility | Main Tasks |
 |---|---|---|
-| Member 1 – [Name] | System Core & Supervisor | Main program, process creation and management, IPC setup, signals, process monitoring, and safe shutdown. |
+| Member 1 – [Ghazal] | System Core & Supervisor | Main program, process creation and management, IPC setup, signals, process monitoring, and safe shutdown. |
 | Member 2 – [Name] | Production Input Stages | Reception, cleaning, and washing modules. |
 | Member 3 – [Name] | Production Output Stages | Crushing, malaxation, separation, and OpenMP implementation and performance comparison. |
 | Member 4 – [Name] | Quality Control, Configuration & GUI | Quality control, configuration file handling, graphical interface using OpenGL, and event reporting support. |
