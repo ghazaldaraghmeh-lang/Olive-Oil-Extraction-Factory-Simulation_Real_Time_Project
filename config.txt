@@ -1,0 +1,2 @@
+# Factory configuration
+# Values and units will be agreed upon by the team.
