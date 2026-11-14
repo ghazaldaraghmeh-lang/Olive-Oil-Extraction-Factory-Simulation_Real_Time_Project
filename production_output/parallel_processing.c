@@ -1,0 +1,1 @@
+/* OpenMP experiments and parallel processing implementation. */
