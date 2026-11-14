@@ -72,9 +72,9 @@ The directory structure will be organized into modules according to the responsi
 
 ---
 
-**Project Team:** [Ghazal Salah
-Maisam Alawi
-Waab Abu Rukab
+**Project Team:** [Ghazal Salah,
+Maisam Alawi,
+Waab Abu Rukab,
 Sadeel Hamouda
 ]
 
