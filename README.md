@@ -74,6 +74,55 @@ This section describes the purpose and responsibility of each header file used i
 - Shared structures and constants should be defined consistently across the project.
 - All team members should follow these definitions to ensure compatibility and smooth integration of their code.
 
+- ## Header Files Organization
+- 
+In addition to the 7 shared contract header files, the project includes module-specific header files.
+
+**Example:** `display.h` is required for the display module, but it does not need to be part of the 7 shared contract files. 
+Each partner is responsible for creating and maintaining the header file related to their own module, provided that all function signatures used by the Core are agreed upon by the team.
+
+### 1. Shared Header Files
+
+These 7 header files are shared across the team, and all partners must follow their definitions and agreements:
+
+```text
+project_contract.h
+messages.h
+production_input.h
+production_output.h
+config.h
+quality_control.h
+logger.h
+```
+
+These files form the **Shared Contract** of the project and ensure consistency and compatibility between all modules.
+
+### 2. Module-Specific Header Files
+
+These header files are specific to individual implementation modules:
+
+```text
+reception.h
+cleaning.h
+washing.h
+crushing.h
+malaxation.h
+separation.h
+display.h
+```
+
+Each partner is responsible for the header files associated with their assigned module.
+
+### Important Integration Rule
+
+Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
+│   ├── reception.h          ← Input module
+│   ├── cleaning.h           ← Input module
+│   ├── washing.h            ← Input module
+│   ├── crushing.h           ← Output module
+│   ├── malaxation.h         ← Output module
+│   ├── separation.h         ← Output module
+│   └── display.h            ← Graphics module
 
 ## Project Goals
 
