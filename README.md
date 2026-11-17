@@ -99,24 +99,6 @@ These files form the **Shared Contract** of the project and ensure consistency a
 
 ### 2. Module-Specific Header Files
 
-These header files are specific to individual implementation modules:
-
-```text
-reception.h
-cleaning.h
-washing.h
-crushing.h
-malaxation.h
-separation.h
-display.h
-```
-
-Each partner is responsible for the header files associated with their assigned module.
-
-### Module-Specific Header Files
-
-**Important:** Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
-
 The following header files are specific to each module:
 
 ```text
@@ -128,6 +110,10 @@ The following header files are specific to each module:
 ├── separation.h         # Output module
 └── display.h            # Graphics module
 ```
+
+Each partner is responsible for the header files associated with their assigned module.
+
+**Important:** Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
 
 **Responsibilities:**
 - **Input Module:** Handles Reception, Cleaning, and Washing stages.
