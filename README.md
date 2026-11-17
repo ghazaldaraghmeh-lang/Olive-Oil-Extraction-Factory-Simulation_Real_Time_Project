@@ -73,7 +73,6 @@ This section describes the purpose and responsibility of each header file used i
 - All team members should follow these definitions to ensure compatibility and smooth integration of their code.
 
 - ## Header Files Organization
-- 
 In addition to the shared contract header files, the project includes module-specific header files.
 
 **Example:** `display.h` is required for the display module, but it does not need to be part of the shared contract files. 
@@ -81,7 +80,7 @@ Each partner is responsible for creating and maintaining the header file related
 
 ### 1. Shared Header Files
 
-These 7 header files are shared across the team, and all partners must follow their definitions and agreements:
+These header files are shared across the team, and all partners must follow their definitions and agreements:
 
 ```text
 project_contract.h
