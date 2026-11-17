@@ -113,16 +113,26 @@ display.h
 
 Each partner is responsible for the header files associated with their assigned module.
 
-### Important Integration Rule
+### Module-Specific Header Files
 
-Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
-│   ├── reception.h          ← Input module
-│   ├── cleaning.h           ← Input module
-│   ├── washing.h            ← Input module
-│   ├── crushing.h           ← Output module
-│   ├── malaxation.h         ← Output module
-│   ├── separation.h         ← Output module
-│   └── display.h            ← Graphics module
+**Important:** Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
+
+The following header files are specific to each module:
+
+```text
+├── reception.h          # Input module
+├── cleaning.h           # Input module
+├── washing.h            # Input module
+├── crushing.h           # Output module
+├── malaxation.h         # Output module
+├── separation.h         # Output module
+└── display.h            # Graphics module
+```
+
+**Responsibilities:**
+- **Input Module:** Handles Reception, Cleaning, and Washing stages.
+- **Output Module:** Handles Crushing, Malaxation, and Separation stages.
+- **Graphics Module:** Handles the visual representation and display of the factory operations.
 
 ## Project Goals
 
