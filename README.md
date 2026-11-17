@@ -53,6 +53,28 @@ The project is divided among four team members to support parallel development a
 | Member 3 – [Sadeel] | Production Output Stages | Crushing, malaxation, separation, and OpenMP implementation and performance comparison. |
 | Member 4 – [Maisam] | Quality Control, Configuration & GUI | Quality control, configuration file handling, graphical interface using OpenGL, and event reporting support. |
 
+# Project File Structure
+
+This section describes the purpose and responsibility of each header file used in the Olive Oil Factory Simulation project.
+
+| File Name | Description |
+|---|---|
+| `project_contract.h` | Defines the common agreement between team members, including factory stages, batch statuses, the number of pipes, and FIFO names. |
+| `messages.h` | Defines the messages exchanged between factory processes and the Supervisor, such as stage started, stage completed, errors, and shutdown notifications. |
+| `production_input.h` | Declares the functions responsible for the initial production stages: **Reception → Cleaning → Washing**. |
+| `production_output.h` | Declares the functions responsible for the final production stages: **Crushing → Malaxation → Separation**. |
+| `config.h` | Defines factory configuration settings and constants, such as the number of batches, olive weight, and oil extraction ratio. |
+| `quality_control.h` | Declares functions for checking batch quality, calculating the Quality Score, and determining whether the extracted oil is accepted or rejected. |
+| `logger.h` | Declares functions for recording factory events, messages, and errors in the log file. |
+
+## Notes
+
+- All header files should contain include guards to prevent multiple inclusions.
+- Function declarations should be placed in the appropriate header files, while their implementations should be placed in corresponding `.c` files.
+- Shared structures and constants should be defined consistently across the project.
+- All team members should follow these definitions to ensure compatibility and smooth integration of their code.
+
+
 ## Project Goals
 
 - Simulate the main stages of an olive oil extraction factory.
