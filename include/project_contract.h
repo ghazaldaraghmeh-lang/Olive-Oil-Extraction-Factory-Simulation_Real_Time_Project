@@ -7,7 +7,7 @@
 
 #define NUM_STAGES 8
 #define NUM_PRODUCTION_STAGES 6
-#define NUM_PIPES 5
+#define NUM_PIPES 6
 #define MAX_MESSAGE 128
 #define DEFAULT_CONFIG_FILE "config.txt"
 #define STATUS_FIFO "/tmp/olive_factory_status"
