@@ -94,24 +94,6 @@ logger.h
 
 These files form the **Shared Contract** of the project and ensure consistency and compatibility between all modules.
 
-### 2. Module-Specific Header Files
-
-The following header files are specific to each module:
-
-```text
-├── reception.h          # Input module
-├── cleaning.h           # Input module
-├── washing.h            # Input module
-├── crushing.h           # Output module
-├── malaxation.h         # Output module
-├── separation.h         # Output module
-└── display.h            # Graphics module
-```
-
-Each partner is responsible for the header files associated with their assigned module.
-
-**Important:** Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
-
 **Responsibilities:**
 - **Input Module (production_input.h):** Handles Reception, Cleaning, and Washing stages.
 - **Output Module(production_output.h ):** Handles Crushing, Malaxation, and Separation stages.
