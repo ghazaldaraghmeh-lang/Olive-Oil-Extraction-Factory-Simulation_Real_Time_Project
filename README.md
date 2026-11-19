@@ -86,6 +86,8 @@ These header files are shared across the team, and all partners must follow thei
 project_contract.h
 messages.h
 config.h
+production_input.h          
+production_output.h
 quality_control.h
 logger.h
 ```
@@ -111,8 +113,8 @@ Each partner is responsible for the header files associated with their assigned 
 **Important:** Any function signature, structure, or interface used by the Core must be agreed upon by the team before integration to avoid compatibility issues between modules.
 
 **Responsibilities:**
-- **Input Module:** Handles Reception, Cleaning, and Washing stages.
-- **Output Module:** Handles Crushing, Malaxation, and Separation stages.
+- **Input Module (production_input.h):** Handles Reception, Cleaning, and Washing stages.
+- **Output Module(production_output.h ):** Handles Crushing, Malaxation, and Separation stages.
 - **Graphics Module:** Handles the visual representation and display of the factory operations.
 
 ## Project Goals
