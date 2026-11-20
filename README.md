@@ -75,8 +75,6 @@ This section describes the purpose and responsibility of each header file used i
 - All team members should follow these definitions to ensure compatibility and smooth integration of their code.
 
 
-- ## Header Files Organization
-
 ### 1. Shared Header Files
 
 These header files are shared across the team, and all partners must follow their definitions and agreements:
