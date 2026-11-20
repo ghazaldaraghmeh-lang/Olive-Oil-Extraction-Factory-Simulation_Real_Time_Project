@@ -5,5 +5,5 @@
 
 void crushing_process(int read_fd, int write_fd);
 void malaxation_process(int read_fd, int write_fd);
-void separation_process(int read_fd, int write_fd);
+void separation_process(int read_fd);
 #endif
