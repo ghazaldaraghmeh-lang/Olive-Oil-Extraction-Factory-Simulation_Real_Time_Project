@@ -61,6 +61,8 @@ This section describes the purpose and responsibility of each header file used i
 |---|---|
 | `project_contract.h` | Defines the common agreement between team members, including factory stages, batch statuses, the number of pipes, and FIFO names. |
 | `messages.h` | Defines the messages exchanged between factory processes and the Supervisor, such as stage started, stage completed, errors, and shutdown notifications. |
+| `production_input.h` | Declares the functions responsible for the initial production stages: **Reception → Cleaning → Washing**. |
+| `production_output.h` | Declares the functions responsible for the final production stages: **Crushing → Malaxation → Separation**. |
 | `config.h` | Defines factory configuration settings and constants, such as the number of batches, olive weight, and oil extraction ratio. |
 | `quality_control.h` | Declares functions for checking batch quality, calculating the Quality Score, and determining whether the extracted oil is accepted or rejected. |
 | `logger.h` | Declares functions for recording factory events, messages, and errors in the log file. |
@@ -72,11 +74,8 @@ This section describes the purpose and responsibility of each header file used i
 - Shared structures and constants should be defined consistently across the project.
 - All team members should follow these definitions to ensure compatibility and smooth integration of their code.
 
-- ## Header Files Organization
-In addition to the shared contract header files, the project includes module-specific header files.
 
-**Example:** `display.h` is required for the display module, but it does not need to be part of the shared contract files. 
-Each partner is responsible for creating and maintaining the header file related to their own module, provided that all function signatures used by the Core are agreed upon by the team.
+- ## Header Files Organization
 
 ### 1. Shared Header Files
 
