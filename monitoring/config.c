@@ -25,6 +25,11 @@ void set_default_config(FactoryConfig *config)
     config->separation_time = 10;
     config->min_quality_score = 60;
     config->oil_extraction_rate = 0.20f;
+    config->separation_water_share = 0.60f;
+    config->separation_portions = 100000;
+    config->separation_use_openmp = 1;
+config->test_reject_batch = 0;
+config->test_reject_reason = TEST_REJECT_NONE;
 }
 
 
@@ -87,7 +92,7 @@ int load_config(const char *filename, FactoryConfig *config)
 
     char line[MAX_CONFIG_LINE];
     int line_number = 0;
-    int seen[9] = {0};
+    int seen[14] = {0};
 
     while (fgets(line, sizeof(line), file) != NULL) {
         line_number++;
@@ -177,6 +182,38 @@ int load_config(const char *filename, FactoryConfig *config)
             index = 8;
             valid = parse_float(value, &temp.oil_extraction_rate);
         }
+        else if (strcmp(key, "SEPARATION_WATER_SHARE") == 0) {
+            index = 9;
+            valid = parse_float(value, &temp.separation_water_share);
+        }
+        else if (strcmp(key, "SEPARATION_PORTIONS") == 0) {
+            index = 10;
+            valid = parse_integer(value, &temp.separation_portions);
+        }
+        else if (strcmp(key, "SEPARATION_USE_OPENMP") == 0) {
+            index = 11;
+            valid = parse_integer(value, &temp.separation_use_openmp);
+        }
+else if (strcmp(key, "TEST_REJECT_BATCH") == 0) {
+    index = 12;
+    valid = parse_integer(value, &temp.test_reject_batch);
+}
+else if (strcmp(key, "TEST_REJECT_REASON") == 0) {
+    index = 13;
+
+    if (strcmp(value, "NONE") == 0) {
+        temp.test_reject_reason = TEST_REJECT_NONE;
+        valid = 0;
+    }
+    else if (strcmp(value, "TEMPERATURE") == 0) {
+        temp.test_reject_reason = TEST_REJECT_TEMPERATURE;
+        valid = 0;
+    }
+    else if (strcmp(value, "PRESSURE") == 0) {
+        temp.test_reject_reason = TEST_REJECT_PRESSURE;
+        valid = 0;
+    }
+}
 
         if (index == -1 || valid != 0 ||
             (index >= 0 && seen[index])) {
@@ -197,7 +234,7 @@ int load_config(const char *filename, FactoryConfig *config)
 
     fclose(file);
 
-    // Make sure all 9 settings are provided
+    // The original 9 settings are required; OpenMP settings have defaults.
     for (int i = 0; i < 9; i++) {
         if (!seen[i]) {
             fprintf(stderr, "Missing configuration setting\n");
@@ -206,7 +243,7 @@ int load_config(const char *filename, FactoryConfig *config)
     }
 
     // Validate allowed ranges
-    if (temp.batch_size <= 0 ||
+    if ( temp.batch_size <= 0 ||
         temp.max_temperature <= 0 ||
         temp.max_pressure <= 0 ||
         temp.washing_time <= 0 ||
@@ -216,7 +253,19 @@ int load_config(const char *filename, FactoryConfig *config)
         temp.min_quality_score < 0 ||
         temp.min_quality_score > 100 ||
         temp.oil_extraction_rate < 0 ||
-        temp.oil_extraction_rate > 1) {
+        temp.oil_extraction_rate > 1 ||
+        temp.separation_water_share < 0 ||
+        temp.separation_water_share > 1 ||
+        temp.separation_portions <= 0 ||
+        (temp.separation_use_openmp != 0 && temp.separation_use_openmp != 1) ||
+temp.test_reject_batch < 0 ||
+(temp.test_reject_reason != TEST_REJECT_NONE &&
+ temp.test_reject_reason != TEST_REJECT_TEMPERATURE &&
+ temp.test_reject_reason != TEST_REJECT_PRESSURE) ||
+(temp.test_reject_batch == 0 &&
+ temp.test_reject_reason != TEST_REJECT_NONE) ||
+(temp.test_reject_batch > 0 &&
+ temp.test_reject_reason == TEST_REJECT_NONE) ) {
 
         fprintf(stderr, "Error: Configuration values out of range\n");
         return -1;
@@ -244,5 +293,17 @@ void print_config(const FactoryConfig *config)
     printf("Separation Time     : %d\n", config->separation_time);
     printf("Min Quality Score   : %d\n", config->min_quality_score);
     printf("Oil Extraction Rate : %.2f\n", config->oil_extraction_rate);
+    printf("Separation Water Share: %.2f\n", config->separation_water_share);
+    printf("Separation Portions : %d\n", config->separation_portions);
+    printf("OpenMP Enabled      : %s\n", config->separation_use_openmp ? "yes" : "no");
+
+const char *reason =
+    config->test_reject_reason == TEST_REJECT_TEMPERATURE ? "TEMPERATURE" :
+    config->test_reject_reason == TEST_REJECT_PRESSURE ? "PRESSURE" : "NONE";
+
+printf("Test Reject Batch   : %d\n", config->test_reject_batch);
+printf("Test Reject Reason  : %s\n", reason);
+
+
     printf("=================================\n");
 }
