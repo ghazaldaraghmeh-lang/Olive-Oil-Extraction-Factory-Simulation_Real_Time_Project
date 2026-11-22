@@ -2,6 +2,9 @@
 #define CONFIG_H
 
 #define MAX_CONFIG_LINE 256
+#define TEST_REJECT_NONE 0
+#define TEST_REJECT_TEMPERATURE 1
+#define TEST_REJECT_PRESSURE 2
 
 /*
 Example config.txt:
@@ -14,6 +17,9 @@ MALAXATION_TIME=8
 SEPARATION_TIME=10
 MIN_QUALITY_SCORE=60
 OIL_EXTRACTION_RATE=0.20
+SEPARATION_WATER_SHARE=0.60
+SEPARATION_PORTIONS=100000
+SEPARATION_USE_OPENMP=1
 */
 
 typedef struct {
@@ -26,6 +32,11 @@ typedef struct {
     int separation_time;
     int min_quality_score;
     float oil_extraction_rate;
+    float separation_water_share;
+    int separation_portions;
+    int separation_use_openmp;
+int test_reject_batch;
+int test_reject_reason;
 } FactoryConfig;
 
 int load_config(const char *filename, FactoryConfig *config);

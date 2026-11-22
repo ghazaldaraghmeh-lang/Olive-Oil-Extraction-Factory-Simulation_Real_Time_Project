@@ -5,10 +5,8 @@
 
 int supervisor_init(void);
 
-void supervisor_run(void);
+void supervisor_run(ProcessInfo processes[]);
 
-void supervisor_shutdown(
-    ProcessInfo processes[]
-);
+void supervisor_shutdown(ProcessInfo processes[]);
 
 #endif

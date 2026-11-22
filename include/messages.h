@@ -23,6 +23,9 @@ typedef struct {
     int batch_id;
     float temperature;
     float pressure;
+    float oil_quantity;
+    float water_quantity;
+    float pomace_quantity;
     int status;
     char message[MAX_MESSAGE];
 } ProcessMessage;

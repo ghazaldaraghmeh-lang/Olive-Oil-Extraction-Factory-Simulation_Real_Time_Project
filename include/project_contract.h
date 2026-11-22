@@ -11,6 +11,7 @@
 #define MAX_MESSAGE 128
 #define DEFAULT_CONFIG_FILE "config.txt"
 #define STATUS_FIFO "/tmp/olive_factory_status"
+#define DISPLAY_FIFO "/tmp/olive_factory_display"
 
 typedef enum {
     STAGE_RECEPTION = 0,
