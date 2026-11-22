@@ -80,13 +80,20 @@ This section describes the purpose and responsibility of each header file used i
 These header files are shared across the team, and all partners must follow their definitions and agreements:
 
 ```text
-project_contract.h
-messages.h
+
 config.h
-production_input.h          
-production_output.h
-quality_control.h
+display.h
 logger.h
+messages.h
+parallel_processing.h
+process_manager.h
+production_input.h
+production_output.h
+project_contract.h
+quality_control.h
+sensors.h
+supervisor.h
+
 ```
 
 These files form the **Shared Contract** of the project and ensure consistency and compatibility between all modules.
