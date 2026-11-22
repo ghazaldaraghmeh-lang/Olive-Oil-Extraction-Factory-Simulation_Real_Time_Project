@@ -3,6 +3,7 @@
 #include "production_input.h"
 #include "messages.h"
 #include "config.h"
+#include "sensors.h"
 
 #include <errno.h>
 #include <float.h>
@@ -42,6 +43,28 @@ static void report_event(int type, int batch_id, int status, const char *text)
     if (write(fd, &message, sizeof(message)) != (ssize_t)sizeof(message)) {
         fprintf(stderr, "[Reception] Failed to send status report.\n");
     }
+    close(fd);
+}
+
+static void report_sensor(const Batch *batch)
+{
+    if (batch == NULL) return;
+    ProcessMessage message = {0};
+    message.process_id = getpid();
+    message.stage_id = STAGE_RECEPTION;
+    message.message_type = MSG_SENSOR_UPDATE;
+    message.batch_id = batch->batch_id;
+    message.temperature = batch->temperature;
+    message.pressure = batch->pressure;
+    message.status = batch->status;
+    snprintf(message.message, sizeof(message.message),
+             "Sensor update: temperature %.1f C, pressure %.1f Bar",
+             batch->temperature, batch->pressure);
+    int fd = open(STATUS_FIFO, O_WRONLY | O_NONBLOCK);
+    if (fd < 0) return;
+    ssize_t n;
+    do { n = write(fd, &message, sizeof(message)); } while (n < 0 && errno == EINTR);
+    (void)n;
     close(fd);
 }
 
@@ -134,6 +157,8 @@ void reception_process(int write_fd)
         batch.olive_weight = (float)weight;
         batch.current_stage = STAGE_RECEPTION;
         batch.status = BATCH_COMPLETED;
+        initialize_batch_sensors(&batch);
+        report_sensor(&batch);
 
         if (write_batch(write_fd, &batch) != 0) {
             fprintf(stderr, "[Reception] Cannot send Batch %d: %s\n", id, strerror(errno));

@@ -2,6 +2,7 @@
 
 #include "production_input.h"
 #include "messages.h"
+#include "sensors.h"
 
 #include <errno.h>
 #include <limits.h>
@@ -60,6 +61,28 @@ static int read_batch(int fd, Batch *batch)
         } else if (errno != EINTR) return -1;
     }
     return 1;
+}
+
+static void report_sensor(const Batch *batch)
+{
+    if (batch == NULL) return;
+    ProcessMessage message = {0};
+    message.process_id = getpid();
+    message.stage_id = STAGE_CLEANING;
+    message.message_type = MSG_SENSOR_UPDATE;
+    message.batch_id = batch->batch_id;
+    message.temperature = batch->temperature;
+    message.pressure = batch->pressure;
+    message.status = batch->status;
+    snprintf(message.message, sizeof(message.message),
+             "Sensor update: temperature %.1f C, pressure %.1f Bar",
+             batch->temperature, batch->pressure);
+    int fd = open(STATUS_FIFO, O_WRONLY | O_NONBLOCK);
+    if (fd < 0) return;
+    ssize_t n;
+    do { n = write(fd, &message, sizeof(message)); } while (n < 0 && errno == EINTR);
+    (void)n;
+    close(fd);
 }
 
 static int write_batch(int fd, const Batch *batch)
@@ -164,6 +187,8 @@ void cleaning_process(int read_fd, int write_fd)
 
         batch.olive_weight = after;
         batch.processing_time += CLEANING_TIME_SECONDS;
+        update_stage_sensors(&batch, STAGE_CLEANING, NULL);
+        report_sensor(&batch);
         batch.current_stage = STAGE_CLEANING;
         batch.status = BATCH_COMPLETED;
 
